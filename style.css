@@ -1,0 +1,32 @@
+
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f0f0f0;
+}
+
+#grid {
+    display: grid;
+    grid-template-columns: repeat(9, 40px);
+    grid-template-rows: repeat(9, 40px);
+    gap: 4px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.square {
+    width: 40px;
+    height: 40px;
+    background-color: lightgray;
+    border: 1px solid #999;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+.square.correct {
+    background-color: green;
+}
+
+.square.incorrect {
+    background-color: red;
+}
