@@ -1,5 +1,9 @@
-const hitSound = new Audio('./audio/WeGotHim.mp3');
-const missSound = new Audio('./audio/Sonar.mp3');
+const hitSound = new Audio("./audio/WeGotHim.mp3");
+hitSound.volume = 1;
+
+const missSound = new Audio("./audio/Sonar.mp3");
+missSound.volume = .4;
+
 
 const grid = document.getElementById('grid');
 
@@ -37,13 +41,14 @@ while (true) {
 const battleship = [head, middle, tail];
 
 // Handle click events //
+const messageDisplay = document.getElementById('message-display');
+
 grid.addEventListener('click', function(e) {
     const target = e.target;
     if (!target.classList.contains('square') || target.classList.contains('correct') || target.classList.contains('incorrect')) {
         return;
     }
     
-
     const index = parseInt(target.dataset.index);
 
     if (battleship.includes(index)) {
@@ -51,11 +56,11 @@ grid.addEventListener('click', function(e) {
         battleship.forEach(i => {
             document.querySelector(`[data-index='${i}']`).classList.add('correct');
         });
-        alert("Hit! You Sank their battleship!");
+        messageDisplay.textContent = "Hit! You Sank their battleship!";
         hitSound.play();
     } else {  
         target.classList.add('incorrect');
-        alert("C'mon, Chief! You missed!");
+        messageDisplay.textContent = "C'mon, Chief! You missed!";
         missSound.play(); 
     }
 });

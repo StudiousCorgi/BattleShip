@@ -112,3 +112,18 @@ h4 {
 .square.incorrect {
     background-color: red, overlay;
 }
+
+.message {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 30px;
+    font-weight: bold;
+    min-height: 30px;
+    color: rgb(251, 255, 0);
+    border-color: #fff 5px solid;
+    text-shadow: rgba(247, 169, 25, 0.76);
+    border-radius: 56%;
+}
