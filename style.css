@@ -2,13 +2,15 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center;
+    justify-items: center;
        
 }
 
 .background {
     background-image: url('./images/BattleShip_Hero.png');
     background-size: cover;
-    background-position: center;
+    background-repeat: no-repeat;
+    background-position:center;
     position: inherit;
     top: 0;
     left: 0;
@@ -26,6 +28,7 @@ body {
     border: #2c3049 solid 2px;
     padding: 10px;
     border-radius: 55px;
+    justify-content: center;
 }   
 
 h4 {
@@ -85,8 +88,8 @@ h4 {
 
 #grid {
     display: grid;
-    grid-template-columns: repeat(9, 40px);
-    grid-template-rows: repeat(9, 40px);
+    grid-template-columns: repeat(9, 50px);
+    grid-template-rows: repeat(9, 50px);
     gap: 2px;
 }
 
@@ -126,4 +129,56 @@ h4 {
     border-color: #fff 5px solid;
     text-shadow: rgba(247, 169, 25, 0.76);
     border-radius: 56%;
+}
+
+@media screen {
+    
+}
+
+@media screen and (max-width: 2560px){
+    .title-container {
+        font-size: 20px;
+    }
+
+    .column-labels, .row-labels {
+        font-size: 20px;
+    }
+
+    .square {
+        width: 30px;
+        height: 30px;
+    }
+
+    #grid {
+        grid-template-columns: repeat(9, 30px);
+        grid-template-rows: repeat(9, 30px);
+    }
+
+    .message {
+        font-size: 24px;
+    }
+}
+
+@media screen (max-width: 320px) {
+    .title-container {
+        font-size: 16px;
+    }
+
+    .column-labels, .row-labels {
+        font-size: 16px;
+    }
+
+    .square {
+        width: 25px;
+        height: 25px;
+    }
+
+    #grid {
+        grid-template-columns: repeat(9, 25px);
+        grid-template-rows: repeat(9, 25px);
+    }
+
+    .message {
+        font-size: 18px;
+    }
 }
