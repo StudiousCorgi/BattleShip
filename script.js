@@ -1,57 +1,61 @@
+const hitSound = new Audio('./audio/WeGotHim.mp3');
+const missSound = new Audio('./audio/Sonar.mp3');
+
 const grid = document.getElementById('grid');
-const gridSize = 9;
 
-// Clear grid in case of re-run
-grid.innerHTML = "";
-
-// Create column labels (A, B, C, ...)
-const columnLabels = document.createElement('div');
-columnLabels.classList.add('row');
-columnLabels.appendChild(document.createElement('div')); // Empty corner
-for (let x = 0; x < gridSize; x++) {
-    const label = document.createElement('div');
-    label.classList.add('label');
-    label.textContent = String.fromCharCode(65 + x); // 65 = 'A'
-    columnLabels.appendChild(label);
+// Generate grid //
+for (let i = 0; i < 81; i++) {
+    const square = document.createElement('div');
+    square.classList.add('square');
+    square.dataset.index = i;
+    grid.appendChild(square);
 }
-grid.appendChild(columnLabels);
 
-// Create grid with row labels
-for (let y = 0; y < gridSize; y++) {
-    const row = document.createElement('div');
-    row.classList.add('row');
-    // Row label
-    const rowLabel = document.createElement('div');
-    rowLabel.classList.add('label');
-    rowLabel.textContent = y + 1;
-    row.appendChild(rowLabel);
+// Generate three-square battleship (horizontal or vertical) //
+let head = Math.floor(Math.random() * 81);
+let middle, tail;
+let isHorizontal = Math.random() < 0.5; // 50% chance for horizontal
 
-    for (let x = 0; x < gridSize; x++) {
-        const square = document.createElement('div');
-        square.classList.add('square');
-        square.dataset.index = y * gridSize + x;
-        row.appendChild(square);
+// Keep generating until valid position is found
+while (true) {
+    head = Math.floor(Math.random() * 81);
+    
+    if (isHorizontal) {  // Check horizontal wrap and bounds
+        if (head % 9 >= 7) continue;
+        middle = head + 1;
+        tail = head + 2;
+    } else {  // Check vertical bounds
+        if (head >= 63) continue; // Prevents going below grid
+        middle = head + 9;  // Next row
+        tail = head + 18;   // Two rows down
     }
-    grid.appendChild(row);
+    
+    // Valid position found
+    break;
 }
 
-// Choose a random index for the battleship //
-const battleshipIndex = Math.floor(Math.random() * 81) + 1; //9x9=81, if grid changes, this does too!//
+const battleship = [head, middle, tail];
 
-
-
-
-// Add click event to each square //
+// Handle click events //
 grid.addEventListener('click', function(e) {
     const target = e.target;
-    if (!target.classList.contains('square') || target.classList.contains('correct') || target.classList.contains('incorrect')) return;
+    if (!target.classList.contains('square') || target.classList.contains('correct') || target.classList.contains('incorrect')) {
+        return;
+    }
+    
 
     const index = parseInt(target.dataset.index);
 
-    if (index === battleshipIndex) {
+    if (battleship.includes(index)) {
         target.classList.add('correct');
-        alert("Hit! You found the battleship!");
-    } else {
+        battleship.forEach(i => {
+            document.querySelector(`[data-index='${i}']`).classList.add('correct');
+        });
+        alert("Hit! You Sank their battleship!");
+        hitSound.play();
+    } else {  
         target.classList.add('incorrect');
+        alert("C'mon, Chief! You missed!");
+        missSound.play(); 
     }
 });
