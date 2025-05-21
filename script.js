@@ -2,7 +2,7 @@
 const grid = document.getElementById('grid');
 const messageDisplay = document.getElementById('message-display');
 const statusText = document.getElementById('status-text');
-const resetBtn = document.getElementById('reset-btn');
+const resetBtn = document.getElementById('resetBtn');
 const pingSound = document.getElementById('ping');
 const impactSound = document.getElementById('impact');
 const winSound = document.getElementById('win');  // Fixed line
@@ -64,7 +64,7 @@ grid.addEventListener('click', function(e) {
 });
 
 // Reset handler
-resetBtn.addEventListener("click" , function() {
+resetBtn.addEventListener('click' , () => {
     console.log('Reset button clicked');
     hits = 0;
     gameOver = false;
